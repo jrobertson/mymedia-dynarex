@@ -11,9 +11,10 @@ end
 
 class MyMediaDynarex < MyMedia::Base
 
-  def initialize(media_type: 'mmdynarex', public_type: 'dynarex', config: nil)
+  def initialize(public_type: 'dynarex', media_type: 'mmdynarex', \
+                                  config: nil, xsl: '/xsl/dynarex-c.xsl')
     
-    @xsl = '/xsl/dynarex-c.xsl'
+    @xsl = xsl
     super(media_type: media_type, public_type: @public_type=public_type, config: config)
 
     @media_src = "%s/media/%s" % [@home, public_type]
@@ -34,6 +35,7 @@ class MyMediaDynarex < MyMedia::Base
       if not raw_msg or raw_msg.empty? then        
         raw_msg = File.basename(src_path) + " updated: " + Time.now.to_s
       end
+      
       
       if File.extname(src_path) == '.txt' then
         dynarex, raw_msg = copy_edit(src_path, destination)
