@@ -100,7 +100,7 @@ class MyMediaDynarex < MyMedia::Base
     
     if dynarex.type == 'feed' then
 
-      h = dynarex.to_h.first
+      h = dynarex.to_a.first
 
       if h[:tags] then
         tags = h[:tags].gsub(/\b\w/,'#\0')
